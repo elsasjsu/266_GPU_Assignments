@@ -1,5 +1,0 @@
-PyTorch version: 2.1.2
-CUDA version used by PyTorch: 12.1
-cuDNN version: 8902
-GPU: NVIDIA GeForce RTX 4090
-GPU UUID: GPU-3094e1cd-3205-910b-9555-93d8401b1ce0
