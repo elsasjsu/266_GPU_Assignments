@@ -1,0 +1,2 @@
+gpu_uuid,peak_tflops_first_30s,steady_tflops_final_5min_mean,steady_state_as_percent_peak
+GPU-3094e1cd-3205-910b-9555-93d8401b1ce0,169.14897157345985,157.82350646754526,93.30444341425036
