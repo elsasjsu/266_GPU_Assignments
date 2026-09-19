@@ -1,0 +1,98 @@
+HW2.5 GPU BENCHMARK RUN LOG
+============================
+
+GPU: NVIDIA GeForce RTX 4090
+GPU UUID: GPU-3094e1cd-3205-910b-9555-93d8401b1ce0
+Driver: 610.60
+VRAM: 24564 MiB
+Power limit: 450.00 W
+PyTorch: 2.1.2
+CUDA: 12.1
+cuDNN: 8902
+
+Part A - System provenance
+--------------------------
+Collected `nvidia-smi -q` and saved it to:
+results/gpu_info/nvidia_smi_q.txt
+
+Saved software stack information to:
+results/gpu_info/software_stack.txt
+
+Part B - Matrix multiplication
+------------------------------
+Benchmarked FP32, TF32, FP16, and BF16 dense matrix multiplication across the required matrix sizes.
+Peak measured BF16 throughput: 180.73 TFLOPS.
+Saved raw measurements to:
+results/matmul/matmul_results.csv
+
+Saved throughput plot to:
+figures/matmul_tflops.png
+
+Part C - Bandwidth and arithmetic intensity
+-------------------------------------------
+Measured FP32 elementwise-add effective bandwidth.
+Effective bandwidth: 912.72 GB/s.
+Arithmetic intensity of elementwise add: 0.08333 FLOP/byte.
+Saved results to:
+results/bandwidth/bandwidth_results.csv
+results/bandwidth/arithmetic_intensity.csv
+
+Part D - Attention
+------------------
+Configuration used for attention tests:
+- dtype: FP16
+- batch size: 8
+- heads: 1
+- head dimension: 64
+
+Tested sequence lengths:
+512, 1024, 2048, 4096, 8192, 16384
+
+Saved naive and fused measurements to:
+results/attention/attention_naive_results.csv
+results/attention/attention_fused_results.csv
+results/attention/attention_comparison.csv
+
+Saved memory-scaling plot to:
+figures/attention_memory.png
+
+At L=16384:
+- naive peak memory: approximately 8.09 GiB
+- fused peak memory: approximately 0.086 GiB
+- naive latency: approximately 28.76 ms
+- fused latency: approximately 11.84 ms
+- fused speedup: approximately 2.43x
+
+Controlled naive-attention OOM refinement:
+A 90% PyTorch per-process memory cap was used because the Windows/Docker environment permitted memory oversubscription beyond nominal physical VRAM.
+- largest successful L: 26752
+- peak allocated at largest success: 21.44 GiB
+- smallest failing L: 26880
+
+Part E - Sustained load
+-----------------------
+Duration: 20 minutes
+Telemetry sampling interval: 5 seconds
+
+Peak throughput during first 30 s: 169.15 TFLOPS
+Mean throughput during final 5 min: 157.82 TFLOPS
+Steady-state / peak: 93.30%
+Maximum temperature: 76 C
+Maximum measured power: 450.17 W
+First near-power-limit high-utilization sample: approximately 5.08 s
+No clear sustained thermal-throttling onset was observed.
+
+Saved telemetry/results to:
+results/thermal/thermal_log.csv
+results/thermal/thermal_throughput.csv
+results/thermal/thermal_summary.csv
+
+Saved thermal plot to:
+figures/thermal_behavior.png
+
+Part F - Summary
+----------------
+Saved final summary table to:
+results/summary_table.csv
+
+NOTE: The currently saved summary still lists the fused-attention OOM boundary as not yet measured. If a fused OOM refinement was completed separately, update both `results/summary_table.csv` and `METRICS.md` before final submission.

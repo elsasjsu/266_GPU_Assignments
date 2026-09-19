@@ -1,0 +1,8 @@
+Measurement,Your GPU,Notes
+Peak achieved TFLOPS (BF16),180.73,Highest UUID-labelled BF16 run
+% theoretical peak (BF16),109.4%,Using 165.2 TFLOPS dense BF16 reference; measured path may use a different execution/accumulation convention
+Effective bandwidth (GB/s),912.72,FP32 elementwise add
+Naive attention OOM length,26752 success / 26880 OOM,Refined boundary using 90% PyTorch memory cap
+Fused attention OOM length,Not yet measured,Fused OOM boundary still needs refinement
+Steady-state / peak throughput,93.30%,157.82 / 169.15 TFLOPS
+Throttle onset,None observed,Power limit reached at ~5.08 s

@@ -1,0 +1,2 @@
+gpu_uuid,operation,mean_ms,effective_bandwidth_gbs,arithmetic_intensity_flops_per_byte
+GPU-3094e1cd-3205-910b-9555-93d8401b1ce0,elementwise_add,1.6828853408495585,912.7181529934728,0.08333333333333333
